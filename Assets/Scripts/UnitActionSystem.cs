@@ -9,7 +9,7 @@ public class UnitActionSystem : MonoBehaviour
     public static UnitActionSystem Instance { get; private set; }
 
     public event EventHandler OnSelectedUnitChanged;
-    
+
     [SerializeField] private Unit selectedUnit;
     [SerializeField] private LayerMask unitLayerMask;
 
@@ -34,7 +34,12 @@ public class UnitActionSystem : MonoBehaviour
                 return;
             }
 
-            selectedUnit.Move(MouseWorld.GetPosition());
+            GridPosition mouseGridPosition = LevelGrid.Instance.GetGridPosition(MouseWorld.GetPosition());
+
+            if (selectedUnit.GetMoveAction().IsValidActionGridPosition(mouseGridPosition))
+            {
+                selectedUnit.GetMoveAction().Move(mouseGridPosition);
+            }
         }
     }
 
