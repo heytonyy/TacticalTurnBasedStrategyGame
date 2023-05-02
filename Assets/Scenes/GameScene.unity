@@ -516,11 +516,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 3617647291313659712, guid: 2fd9b5754b7123d44aea7d618814d049,
-        type: 3}
-      propertyPath: maxMoveDistance
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 8196496475985605501, guid: 2fd9b5754b7123d44aea7d618814d049,
         type: 3}
       propertyPath: m_RootOrder
@@ -1190,11 +1185,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 3617647291313659712, guid: 2fd9b5754b7123d44aea7d618814d049,
-        type: 3}
-      propertyPath: maxMoveDistance
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 8196496475985605501, guid: 2fd9b5754b7123d44aea7d618814d049,
         type: 3}
       propertyPath: m_RootOrder
@@ -1274,6 +1264,52 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4f5be8ef18640984ea00bb38be2ddffe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &780911400
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 780911402}
+  - component: {fileID: 780911401}
+  m_Layer: 0
+  m_Name: GridSystemVisual
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &780911401
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 780911400}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6c486c5b7e1f1e94ca5c0883b78c3312, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gridSystemVisualSinglePrefab: {fileID: 7736611873517644218, guid: e9653829729c7424788b7ee87a98012a,
+    type: 3}
+--- !u!4 &780911402
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 780911400}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 14
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &799566530
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2334,7 +2370,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ea20d90618fe080438d87a45fc0d4b95, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  unit: {fileID: 722579662}
 --- !u!4 &1975246633
 Transform:
   m_ObjectHideFlags: 0
@@ -2667,11 +2702,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 3617647291313659712, guid: 2fd9b5754b7123d44aea7d618814d049,
-        type: 3}
-      propertyPath: maxMoveDistance
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 5017175946827806003, guid: 2fd9b5754b7123d44aea7d618814d049,
         type: 3}
       propertyPath: m_Name
@@ -2751,6 +2781,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Layer
       value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 8196496476193430972, guid: 2fd9b5754b7123d44aea7d618814d049,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.02
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2fd9b5754b7123d44aea7d618814d049, type: 3}
