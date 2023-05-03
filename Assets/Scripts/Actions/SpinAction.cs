@@ -46,4 +46,6 @@ public class SpinAction : BaseAction
 
     public override string GetActionName() => "Spin";
 
+    public override int GetActionPointsCost() => 2;
+
 }
