@@ -45,6 +45,11 @@ public class UnitActionSystem : MonoBehaviour
             return; // don't do anything if we're doing an action
         }
 
+        if(!TurnSystem.Instance.IsPlayerTurn())
+        {
+            return; // don't do anything if it's the enemy's turn
+        }
+
         if (EventSystem.current.IsPointerOverGameObject())
         {
             return; // don't do anything if the mouse is over a UI element
@@ -93,6 +98,11 @@ public class UnitActionSystem : MonoBehaviour
                     if (unit == selectedUnit)
                     {
                         return false; // don't do anything if we're clicking on the same unit
+                    }
+
+                    if (unit.IsEnemy())
+                    {
+                        return false; // don't do anything if we're clicking on an enemy unit
                     }
 
                     SetSelectedUnit(unit);

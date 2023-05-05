@@ -7,7 +7,9 @@ public class MoveAction : BaseAction
 {
     private const string IS_WALKING = "IsWalking";
 
-    [SerializeField] private Animator unitAnimator;
+    public event EventHandler OnStartMoving;
+    public event EventHandler OnFinishedMoving;
+
     [SerializeField] private int maxMoveDistance = 4;
     private Vector3 targetPosition;
 
@@ -30,14 +32,11 @@ public class MoveAction : BaseAction
         {
             float moveSpeed = 5f;
             transform.position += moveDirection * Time.deltaTime * moveSpeed;
-
-            unitAnimator.SetBool(IS_WALKING, true);
         }
         else
         {
-            unitAnimator.SetBool(IS_WALKING, false);
-            isActive = false;
-            onActionComplete?.Invoke();
+            OnFinishedMoving?.Invoke(this, EventArgs.Empty);
+            ActionComplete();
         }
 
         float rotateSpeed = 10f;
@@ -46,9 +45,10 @@ public class MoveAction : BaseAction
 
     public override void TakeAction(GridPosition gridPosition, Action onActionComplete)
     {
-        this.onActionComplete = onActionComplete;
+        ActionStart(onActionComplete);
         this.targetPosition = LevelGrid.Instance.GetWorldPosition(gridPosition);
-        isActive = true;
+
+        OnStartMoving?.Invoke(this, EventArgs.Empty);
     }
 
     public override List<GridPosition> GetValidActionGridPositionList()
