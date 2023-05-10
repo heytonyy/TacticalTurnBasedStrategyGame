@@ -5,12 +5,11 @@ using System;
 
 public class MoveAction : BaseAction
 {
-    private const string IS_WALKING = "IsWalking";
-
     public event EventHandler OnStartMoving;
-    public event EventHandler OnFinishedMoving;
+    public event EventHandler OnStopMoving;
 
-    [SerializeField] private int maxMoveDistance = 4;
+    [SerializeField]
+    private int maxMoveDistance = 4;
     private Vector3 targetPosition;
 
     protected override void Awake()
@@ -35,12 +34,16 @@ public class MoveAction : BaseAction
         }
         else
         {
-            OnFinishedMoving?.Invoke(this, EventArgs.Empty);
+            OnStopMoving?.Invoke(this, EventArgs.Empty);
             ActionComplete();
         }
 
         float rotateSpeed = 10f;
-        transform.forward = Vector3.Lerp(transform.forward, moveDirection, Time.deltaTime * rotateSpeed);
+        transform.forward = Vector3.Lerp(
+            transform.forward,
+            moveDirection,
+            Time.deltaTime * rotateSpeed
+        );
     }
 
     public override void TakeAction(GridPosition gridPosition, Action onActionComplete)
@@ -86,5 +89,4 @@ public class MoveAction : BaseAction
     }
 
     public override string GetActionName() => "Move";
-
 }

@@ -7,6 +7,16 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 894543781199161791, guid: 2fd9b5754b7123d44aea7d618814d049,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 895109701362418511, guid: 2fd9b5754b7123d44aea7d618814d049,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8196496475985605500, guid: 2fd9b5754b7123d44aea7d618814d049,
         type: 3}
       propertyPath: isEnemy

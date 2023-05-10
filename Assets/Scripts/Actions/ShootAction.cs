@@ -5,7 +5,13 @@ using UnityEngine;
 
 public class ShootAction : BaseAction
 {
-    public event EventHandler OnShoot;
+    public event EventHandler<OnShootEventArgs> OnShoot;
+
+    public class OnShootEventArgs : EventArgs
+    {
+        public Unit shootingUnit;
+        public Unit targetUnit;
+    }
 
     private enum State
     {
@@ -13,6 +19,7 @@ public class ShootAction : BaseAction
         Shooting,
         Cooloff
     }
+
     private State state;
 
     private int maxShootDistance = 7;
@@ -31,9 +38,15 @@ public class ShootAction : BaseAction
         switch (state)
         {
             case State.Aiming:
-                Vector3 aimDirection = (targetUnit.GetWorldPosition() - unit.GetWorldPosition()).normalized;
+                Vector3 aimDirection = (
+                    targetUnit.GetWorldPosition() - unit.GetWorldPosition()
+                ).normalized;
                 float rotateSpeed = 10f;
-                transform.forward = Vector3.Lerp(transform.forward, aimDirection, Time.deltaTime * rotateSpeed);
+                transform.forward = Vector3.Lerp(
+                    transform.forward,
+                    aimDirection,
+                    Time.deltaTime * rotateSpeed
+                );
                 break;
             case State.Shooting:
                 if (canShoot)
@@ -72,11 +85,29 @@ public class ShootAction : BaseAction
         }
     }
 
+    public override string GetActionName() => "Shoot";
+
     private void Shoot()
     {
-        OnShoot?.Invoke(this, EventArgs.Empty);
+        OnShoot?.Invoke(
+            this,
+            new OnShootEventArgs { shootingUnit = unit, targetUnit = targetUnit }
+        );
 
         targetUnit.TakeDamage();
+    }
+
+    public override void TakeAction(GridPosition gridPosition, Action onActionComplete)
+    {
+        ActionStart(onActionComplete);
+
+        targetUnit = LevelGrid.Instance.GetUnitAtGridPosition(gridPosition);
+
+        state = State.Aiming;
+        float aimingStateTime = 1f;
+        stateTimer = aimingStateTime;
+
+        canShoot = true;
     }
 
     public override List<GridPosition> GetValidActionGridPositionList()
@@ -96,21 +127,21 @@ public class ShootAction : BaseAction
                     continue; // cant move to grid position out of bounds
                 }
 
+                int testDistance = Mathf.Abs(x) + Mathf.Abs(z);
+                if (testDistance > maxShootDistance)
+                {
+                    continue; // cant shoot outside circle of max distance
+                }
+
                 if (!LevelGrid.Instance.HasAnyUnitOnGridPosition(testGridPosition))
                 {
                     continue; // cant shoot at empty grid position
                 }
 
-                int testDistance = Mathf.Abs(x) + Mathf.Abs(z);
-                if (testDistance > maxShootDistance)
-                {
-                    continue; // cat shoot outside circle of max distance
-                }
-
                 Unit targetUnit = LevelGrid.Instance.GetUnitAtGridPosition(testGridPosition);
                 if (targetUnit.IsEnemy() == unit.IsEnemy())
                 {
-                    continue; // cant shoot at friendly unit
+                    continue; // cant shoot at friendly unit, "same team" -> .IsEnemy() will be the same
                 }
 
                 validActionGridPositionList.Add(testGridPosition);
@@ -118,20 +149,5 @@ public class ShootAction : BaseAction
         }
 
         return validActionGridPositionList;
-    }
-
-    public override string GetActionName() => "Shoot";
-
-    public override void TakeAction(GridPosition gridPosition, Action onActionComplete)
-    {
-        ActionStart(onActionComplete);
-
-        state = State.Aiming;
-        float aimingStateTime = 0.1f;
-        stateTimer = aimingStateTime;
-
-        targetUnit = LevelGrid.Instance.GetUnitAtGridPosition(gridPosition);
-        
-        canShoot = true;
     }
 }
