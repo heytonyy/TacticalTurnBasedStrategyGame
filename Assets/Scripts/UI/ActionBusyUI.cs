@@ -5,6 +5,7 @@ using UnityEngine;
 public class ActionBusyUI : MonoBehaviour
 {
 
+    // Awake - Start - Update Methods
     private void Start()
     {
         UnitActionSystem.Instance.OnBusyChanged += UnitActionSystem_OnBusyChanged;
@@ -24,14 +25,7 @@ public class ActionBusyUI : MonoBehaviour
         }
     }
 
-    private void Show()
-    {
-        gameObject.SetActive(true);
-    }
-
-    private void Hide()
-    {
-        gameObject.SetActive(false);
-    }
+    private void Show() => gameObject.SetActive(true);
+    private void Hide() => gameObject.SetActive(false);
 
 }

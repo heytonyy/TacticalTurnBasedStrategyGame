@@ -5,16 +5,19 @@ using System;
 
 public class EnemyAI : MonoBehaviour
 {
+    // Member Variables
+    private float timer;
+
+    // State Management
     private enum State
     {
         WaitingForEnemyTurn,
         TakingTurn,
         Busy,
     }
-
     private State state;
-    private float timer;
 
+    // Awake - Start - Update Methods
     private void Awake()
     {
         state = State.WaitingForEnemyTurn;
@@ -56,6 +59,7 @@ public class EnemyAI : MonoBehaviour
         }
     }
 
+    // Class Methods
     private void SetStateTakingTurn()
     {
         timer = 0.5f;

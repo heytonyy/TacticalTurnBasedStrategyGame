@@ -5,8 +5,10 @@ using System;
 
 public class SpinAction : BaseAction
 {
+    // Member Variables
     private float totalSpinAmount;
 
+    // Awake - Start - Update Methods
     private void Update()
     {
         if (!isActive)
@@ -24,9 +26,15 @@ public class SpinAction : BaseAction
         }
     }
 
+    // Abstract Method Implementation
     public override string GetActionName() => "Spin";
 
-    public override int GetActionPointsCost() => 1;
+    public override List<GridPosition> GetValidActionGridPositionList()
+    {
+        GridPosition unitGridPosition = unit.GetGridPosition();
+
+        return new List<GridPosition> { unitGridPosition };
+    }
 
     public override void TakeAction(GridPosition gridPosition, Action onActionComplete)
     {
@@ -35,10 +43,7 @@ public class SpinAction : BaseAction
         ActionStart(onActionComplete);
     }
 
-    public override List<GridPosition> GetValidActionGridPositionList()
-    {
-        GridPosition unitGridPosition = unit.GetGridPosition();
+    // Virtual Method Overrides
+    public override int GetActionPointsCost() => 1;
 
-        return new List<GridPosition> { unitGridPosition };
-    }
 }

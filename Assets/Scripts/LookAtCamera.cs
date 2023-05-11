@@ -4,16 +4,17 @@ using UnityEngine;
 
 public class LookAtCamera : MonoBehaviour
 {
-    [SerializeField]
-    private bool invert;
+    // Member Variables
+    [SerializeField] private bool invert;
     private Transform cameraTransform;
 
+    // Awake - Start - Update Methods
     private void Awake()
     {
         cameraTransform = Camera.main.transform;
     }
 
-    private void LateUpdate()
+    private void LateUpdate() // LateUpdate is called after Update
     {
         if (invert)
         {

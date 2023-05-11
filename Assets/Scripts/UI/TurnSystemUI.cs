@@ -6,17 +6,18 @@ using TMPro;
 
 public class TurnSystemUI : MonoBehaviour
 {
-
+    // Member Variables
     [SerializeField] private Button endTurnButton;
     [SerializeField] private TextMeshProUGUI turnNumberText;
     [SerializeField] private GameObject enemyTurnVisualGameObject;
 
+    // Awake - Start - Update Methods
     private void Start()
     {
         TurnSystem.Instance.OnTurnChanged += TurnSystemUI_OnTurnChanged;
-        
+
         endTurnButton.onClick.AddListener(() => TurnSystem.Instance.NextTurn());
-        
+
         UpdateTurnText();
         UpdateEnemyTurnVisual();
         UpdateEndTurnButtonVisibility();

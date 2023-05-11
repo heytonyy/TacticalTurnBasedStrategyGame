@@ -2,15 +2,18 @@ using System;
 
 public struct GridPosition : IEquatable<GridPosition>
 {
+    // Member Variables
     public int x;
     public int z;
 
+    // Constructor
     public GridPosition(int x, int z)
     {
         this.x = x;
         this.z = z;
     }
 
+    // Class Methods
     public override bool Equals(object obj)
     {
         return obj is GridPosition position &&

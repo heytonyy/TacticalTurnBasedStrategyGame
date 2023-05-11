@@ -4,10 +4,12 @@ using UnityEngine;
 
 public class GridObject
 {
+    // Member Variables
     private GridPosition gridPosition;
     private GridSystem gridSystem;
     private List<Unit> unitList;
 
+    // Constructor
     public GridObject(GridSystem gridSystem, GridPosition gridPosition)
     {
         this.gridPosition = gridPosition;
@@ -26,26 +28,10 @@ public class GridObject
         return gridPosition.ToString() + "\n" + unitString;
     }
 
-    public void AddUnit(Unit unit)
-    {
-        unitList.Add(unit);
-    }
-
-    public List<Unit> GetUnitList()
-    {
-        return unitList;
-    }
-
-    public void RemoveUnit(Unit unit)
-    {
-        unitList.Remove(unit);
-    }
-
-    public bool HadAnyUnit()
-    {
-        return unitList.Count > 0;
-    }
-
+    // Class Methods
+    public List<Unit> GetUnitList() => unitList;
+    public void AddUnit(Unit unit) => unitList.Add(unit);
+    public void RemoveUnit(Unit unit) => unitList.Remove(unit);
     public Unit GetUnit()
     {
         if (HadAnyUnit())
@@ -57,5 +43,6 @@ public class GridObject
             return null;
         }
     }
+    public bool HadAnyUnit() => unitList.Count > 0;
 
 }

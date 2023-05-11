@@ -4,19 +4,11 @@ using UnityEngine;
 
 public class BulletProjectile : MonoBehaviour
 {
-    [SerializeField]
-    private TrailRenderer trailRenderer;
-
-    [SerializeField]
-    private Transform bulletHitVfxPrefab;
-
+    [SerializeField] private TrailRenderer trailRenderer;
+    [SerializeField] private Transform bulletHitVfxPrefab;
     private Vector3 targetPosition;
 
-    public void Setup(Vector3 targetPosition)
-    {
-        this.targetPosition = targetPosition;
-    }
-
+    // Awake - Start - Update Methods
     private void Update()
     {
         Vector3 moveDirection = (targetPosition - transform.position).normalized;
@@ -37,5 +29,11 @@ public class BulletProjectile : MonoBehaviour
 
             Instantiate(bulletHitVfxPrefab, targetPosition, Quaternion.identity);
         }
+    }
+
+    // Class Methods
+    public void Setup(Vector3 targetPosition)
+    {
+        this.targetPosition = targetPosition;
     }
 }

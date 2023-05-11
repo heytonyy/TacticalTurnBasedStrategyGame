@@ -5,10 +5,11 @@ using System;
 
 public class UnitSelectedVisual : MonoBehaviour
 {
-    [SerializeField]
-    private Unit unit;
+    // Member Variables
+    [SerializeField] private Unit unit;
     private ParticleSystem selectedVisual;
 
+    // Awake - Start - Update Methods
     private void Awake()
     {
         selectedVisual = GetComponent<ParticleSystem>();
@@ -21,6 +22,8 @@ public class UnitSelectedVisual : MonoBehaviour
         UpdateVisual();
     }
 
+
+    // Class Methods
     private void UnitActionSystem_OnSelectedUnitChanged(object sender, EventArgs e)
     {
         UpdateVisual();

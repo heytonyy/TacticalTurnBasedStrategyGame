@@ -5,28 +5,30 @@ using UnityEngine;
 
 public class ShootAction : BaseAction
 {
+    // Event Handlers
     public event EventHandler<OnShootEventArgs> OnShoot;
-
     public class OnShootEventArgs : EventArgs
     {
         public Unit shootingUnit;
         public Unit targetUnit;
     }
 
+    // Member Variables
+    private int maxShootDistance = 7;
+    private float stateTimer;
+    private Unit targetUnit;
+    private bool canShoot;
+
+    // State Management
     private enum State
     {
         Aiming,
         Shooting,
         Cooloff
     }
-
     private State state;
 
-    private int maxShootDistance = 7;
-    private float stateTimer;
-    private Unit targetUnit;
-    private bool canShoot;
-
+    // Awake - Start - Update Methods
     private void Update()
     {
         if (!isActive)
@@ -38,15 +40,9 @@ public class ShootAction : BaseAction
         switch (state)
         {
             case State.Aiming:
-                Vector3 aimDirection = (
-                    targetUnit.GetWorldPosition() - unit.GetWorldPosition()
-                ).normalized;
+                Vector3 aimDirection = (targetUnit.GetWorldPosition() - unit.GetWorldPosition()).normalized;
                 float rotateSpeed = 10f;
-                transform.forward = Vector3.Lerp(
-                    transform.forward,
-                    aimDirection,
-                    Time.deltaTime * rotateSpeed
-                );
+                transform.forward = Vector3.Lerp(transform.forward, aimDirection, Time.deltaTime * rotateSpeed);
                 break;
             case State.Shooting:
                 if (canShoot)
@@ -85,18 +81,8 @@ public class ShootAction : BaseAction
         }
     }
 
+    // Abstract Methods Implementation
     public override string GetActionName() => "Shoot";
-
-    private void Shoot()
-    {
-        OnShoot?.Invoke(
-            this,
-            new OnShootEventArgs { shootingUnit = unit, targetUnit = targetUnit }
-        );
-
-        int damageAmount = 40;
-        targetUnit.TakeDamage(damageAmount);
-    }
 
     public override void TakeAction(GridPosition gridPosition, Action onActionComplete)
     {
@@ -152,7 +138,16 @@ public class ShootAction : BaseAction
         return validActionGridPositionList;
     }
 
+    // Getter Methods
     public Unit GetTargetUnit() => targetUnit;
-
     public int GetMaxShootDistance() => maxShootDistance;
+
+    // Other Methods
+    private void Shoot()
+    {
+        OnShoot?.Invoke(this, new OnShootEventArgs { shootingUnit = unit, targetUnit = targetUnit });
+
+        int damageAmount = 40;
+        targetUnit.TakeDamage(damageAmount);
+    }
 }

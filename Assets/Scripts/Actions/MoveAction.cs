@@ -5,13 +5,15 @@ using System;
 
 public class MoveAction : BaseAction
 {
+    // Event Handlers
     public event EventHandler OnStartMoving;
     public event EventHandler OnStopMoving;
 
-    [SerializeField]
-    private int maxMoveDistance = 4;
+    // Member Variables
+    [SerializeField] private int maxMoveDistance = 4;
     private Vector3 targetPosition;
 
+    // Awake - Start - Update Methods
     protected override void Awake()
     {
         base.Awake(); // Calls the Awake() method in the BaseAction class
@@ -46,6 +48,9 @@ public class MoveAction : BaseAction
             Time.deltaTime * rotateSpeed
         );
     }
+
+    // Abstract Method Implementation
+    public override string GetActionName() => "Move";
 
     public override void TakeAction(GridPosition gridPosition, Action onActionComplete)
     {
@@ -90,5 +95,4 @@ public class MoveAction : BaseAction
         return validActionGridPositionList;
     }
 
-    public override string GetActionName() => "Move";
 }

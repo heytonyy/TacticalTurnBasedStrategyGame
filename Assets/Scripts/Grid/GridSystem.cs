@@ -4,11 +4,13 @@ using UnityEngine;
 
 public class GridSystem
 {
+    // Member Variables
     private int width;
     private int height;
     private float cellSize;
     private GridObject[,] gridObjectArray; // 2D array syntax -> [,]
 
+    // Constructor
     public GridSystem(int width, int height, float cellSize)
     {
         this.width = width;
@@ -27,6 +29,11 @@ public class GridSystem
         }
     }
 
+    // Getter Methods
+    public int GetWidth() => width;
+    public int GetHeight() => height;
+
+    // Class Methods
     public Vector3 GetWorldPosition(GridPosition gridPosition)
     {
         return new Vector3(gridPosition.x, 0, gridPosition.z) * cellSize;
@@ -64,7 +71,4 @@ public class GridSystem
                 gridPosition.z < height;
     }
 
-    public int GetWidth() => width;
-
-    public int GetHeight() => height;
 }

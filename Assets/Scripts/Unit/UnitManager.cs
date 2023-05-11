@@ -5,12 +5,15 @@ using UnityEngine;
 
 public class UnitManager : MonoBehaviour
 {
+    // Singleton
     public static UnitManager Instance { get; private set; }
 
+    // Member Variables
     private List<Unit> unitList;
     private List<Unit> friendlyUnitList;
     private List<Unit> enemyUnitList;
 
+    // Awake - Start - Update Methods
     private void Awake()
     {
         if (Instance != null)
@@ -32,6 +35,12 @@ public class UnitManager : MonoBehaviour
         Unit.OnAnyUnitDead += Unit_OnAnyUnitDead;
     }
 
+    // Getter Methods
+    public List<Unit> GetUnitList() => unitList;
+    public List<Unit> GetFriendlyUnitList() => friendlyUnitList;
+    public List<Unit> GetEnemyUnitList() => enemyUnitList;
+
+    // Class Methods
     private void Unit_OnAnyUnitSpawned(object sender, EventArgs e)
     {
         Unit unit = sender as Unit;
@@ -64,9 +73,4 @@ public class UnitManager : MonoBehaviour
         }
     }
 
-    public List<Unit> GetUnitList() => unitList;
-
-    public List<Unit> GetFriendlyUnitList() => friendlyUnitList;
-
-    public List<Unit> GetEnemyUnitList() => enemyUnitList;
 }

@@ -5,15 +5,16 @@ using System;
 
 public class Unit : MonoBehaviour
 {
+    // Constants
     private const int ACTION_POINTS_MAX = 2;
 
+    // Event Handlers
     public static event EventHandler OnAnyActionPointsChanged;
     public static event EventHandler OnAnyUnitSpawned;
     public static event EventHandler OnAnyUnitDead;
 
-    [SerializeField]
-    private bool isEnemy;
-
+    // Member Variables
+    [SerializeField] private bool isEnemy;
     private GridPosition gridPosition;
     private HealthSystem healthSystem;
     private MoveAction moveAction;
@@ -21,6 +22,7 @@ public class Unit : MonoBehaviour
     private BaseAction[] baseActionArray;
     private int actionPoints = ACTION_POINTS_MAX;
 
+    // Awake - Start - Update Methods
     private void Awake()
     {
         healthSystem = GetComponent<HealthSystem>();
@@ -53,18 +55,16 @@ public class Unit : MonoBehaviour
         }
     }
 
+    // Getter Methods
     public GridPosition GetGridPosition() => gridPosition;
-
     public Vector3 GetWorldPosition() => transform.position;
-
     public MoveAction GetMoveAction() => moveAction;
-
     public SpinAction GetSpinAction() => spinAction;
-
-    public bool IsEnemy() => isEnemy;
-
     public BaseAction[] GetBaseActionArray() => baseActionArray;
+    public bool IsEnemy() => isEnemy;
+    public int GetActionPoints() => actionPoints;
 
+    // Class Methods
     public bool TrySpendActionToTakeAction(BaseAction baseAction)
     {
         if (CanSpendActionPointsToTakeAction(baseAction))
@@ -83,13 +83,16 @@ public class Unit : MonoBehaviour
         return actionPoints >= baseAction.GetActionPointsCost();
     }
 
-    public int GetActionPoints() => actionPoints;
-
     private void SpendActionPoints(int amount)
     {
         actionPoints -= amount;
 
         OnAnyActionPointsChanged?.Invoke(this, EventArgs.Empty);
+    }
+
+    public void TakeDamage(int damageAmount)
+    {
+        healthSystem.TakeDamage(damageAmount);
     }
 
     private void TurnSystem_OnTurnChanged(object sender, System.EventArgs e)
@@ -103,11 +106,6 @@ public class Unit : MonoBehaviour
 
             OnAnyActionPointsChanged?.Invoke(this, EventArgs.Empty);
         }
-    }
-
-    public void TakeDamage(int damageAmount)
-    {
-        healthSystem.TakeDamage(damageAmount);
     }
 
     private void HealthSystem_OnDead(object sender, EventArgs e)

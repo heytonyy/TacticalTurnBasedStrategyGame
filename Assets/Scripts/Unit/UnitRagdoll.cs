@@ -4,9 +4,11 @@ using UnityEngine;
 
 public class UnitRagdoll : MonoBehaviour
 {
-    [SerializeField]
-    private Transform ragdollRootBone;
+    // Member Variables
+    [SerializeField] private Transform ragdollRootBone;
 
+
+    // Class Methods
     public void Setup(Transform originalRootBone)
     {
         MatchAllChildTransforms(originalRootBone, ragdollRootBone);
@@ -28,22 +30,13 @@ public class UnitRagdoll : MonoBehaviour
         }
     }
 
-    private void ApplyExplosionToRagdoll(
-        Transform root,
-        float explosionForce,
-        Vector3 explosionPosition,
-        float explosionRadius
-    )
+    private void ApplyExplosionToRagdoll(Transform root, float explosionForce, Vector3 explosionPosition, float explosionRadius)
     {
         foreach (Transform child in root)
         {
             if (child.TryGetComponent<Rigidbody>(out Rigidbody childRigidbody))
             {
-                childRigidbody.AddExplosionForce(
-                    explosionForce,
-                    explosionPosition,
-                    explosionRadius
-                );
+                childRigidbody.AddExplosionForce(explosionForce, explosionPosition, explosionRadius);
             }
 
             ApplyExplosionToRagdoll(child, explosionForce, explosionPosition, explosionRadius);

@@ -5,11 +5,11 @@ using TMPro;
 
 public class GridDebugObject : MonoBehaviour
 {
+    // Member Variables
     private GridObject gridObject;
+    [SerializeField] private TextMeshPro textMeshPro;
 
-    [SerializeField]
-    private TextMeshPro textMeshPro;
-
+    // Awake - Start - Update Methods
     private void Update()
     {
         textMeshPro.text = gridObject.ToString();
@@ -17,6 +17,7 @@ public class GridDebugObject : MonoBehaviour
         // textMeshPro.text = "";
     }
 
+    // Setter Methods
     public void SetGridObject(GridObject gridObject)
     {
         this.gridObject = gridObject;

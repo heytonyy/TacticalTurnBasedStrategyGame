@@ -5,15 +5,12 @@ using UnityEngine;
 
 public class UnitAnimator : MonoBehaviour
 {
-    [SerializeField]
-    private Animator animator;
+    // Member Variables
+    [SerializeField] private Animator animator;
+    [SerializeField] private Transform bulletProjectilePrefab;
+    [SerializeField] private Transform shootPointTransform;
 
-    [SerializeField]
-    private Transform bulletProjectilePrefab;
-
-    [SerializeField]
-    private Transform shootPointTransform;
-
+    // Awake - Start - Update Methods
     private void Awake()
     {
         if (TryGetComponent<MoveAction>(out MoveAction moveAction))

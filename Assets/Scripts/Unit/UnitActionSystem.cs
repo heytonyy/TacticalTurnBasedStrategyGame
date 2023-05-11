@@ -6,22 +6,22 @@ using UnityEngine.EventSystems;
 
 public class UnitActionSystem : MonoBehaviour
 {
+    // Singleton
     public static UnitActionSystem Instance { get; private set; }
 
+    // Event Handlers
     public event EventHandler OnSelectedUnitChanged;
     public event EventHandler OnSelectedActionChanged;
     public event EventHandler<bool> OnBusyChanged;
     public event EventHandler OnActionStarted;
 
-    [SerializeField]
-    private Unit selectedUnit;
-
-    [SerializeField]
-    private LayerMask unitLayerMask;
-
+    // Member Variables
+    [SerializeField] private Unit selectedUnit;
+    [SerializeField] private LayerMask unitLayerMask;
     private BaseAction selectedAction;
     private bool isBusy;
 
+    // Awake - Start - Update Methods
     private void Awake()
     {
         if (Instance != null)
@@ -118,30 +118,28 @@ public class UnitActionSystem : MonoBehaviour
         return false;
     }
 
-    private void SetBusy()
-    {
-        isBusy = true;
-
-        OnBusyChanged?.Invoke(this, isBusy);
-    }
-
-    private void ClearBusy()
-    {
-        isBusy = false;
-
-        OnBusyChanged?.Invoke(this, isBusy);
-    }
-
-    public bool IsBusy() => isBusy;
-
+    // Getter / Setter Methods
     public Unit GetSelectedUnit() => selectedUnit;
-
     private void SetSelectedUnit(Unit unit)
     {
         selectedUnit = unit;
         SetSelectedAction(unit.GetMoveAction()); // default action
 
         OnSelectedUnitChanged?.Invoke(this, EventArgs.Empty);
+    }
+
+    public bool IsBusy() => isBusy;
+    private void SetBusy()
+    {
+        isBusy = true;
+
+        OnBusyChanged?.Invoke(this, isBusy);
+    }
+    private void ClearBusy()
+    {
+        isBusy = false;
+
+        OnBusyChanged?.Invoke(this, isBusy);
     }
 
     public BaseAction GetSelectedAction() => selectedAction;

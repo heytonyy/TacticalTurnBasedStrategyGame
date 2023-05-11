@@ -6,13 +6,13 @@ using TMPro;
 
 public class UnitActionSystemUI : MonoBehaviour
 {
-
+    // Member Variables
     [SerializeField] private Transform actionButtonPrefab;
     [SerializeField] private Transform actionButtonContainerTransform;
     [SerializeField] private TextMeshProUGUI actionPointsText;
-
     private List<ActionButtonUI> actionButtonUIList;
 
+    // Awake - Start - Update Methods
     private void Awake()
     {
         actionButtonUIList = new List<ActionButtonUI>();

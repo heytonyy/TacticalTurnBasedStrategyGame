@@ -5,12 +5,16 @@ using Cinemachine;
 
 public class CameraController : MonoBehaviour
 {
+    // Constants
     private const float MIN_FOLLOW_OFFSET_Y = 2f;
     private const float MAX_FOLLOW_OFFSET_Y = 12f;
+
+    // Member Variables
     [SerializeField] private CinemachineVirtualCamera cinemachineVirtualCamera;
     private CinemachineTransposer cinemachineTransposer;
     private Vector3 targetFollowOffset;
 
+    // Awake - Start - Update Methods
     private void Start()
     {
         cinemachineTransposer = cinemachineVirtualCamera.GetCinemachineComponent<CinemachineTransposer>();
@@ -24,6 +28,7 @@ public class CameraController : MonoBehaviour
         HandleZoom();
     }
 
+    // Class Methods
     private void HandleMovement()
     {
         Vector3 inputMoveDirection = new Vector3(0, 0, 0);

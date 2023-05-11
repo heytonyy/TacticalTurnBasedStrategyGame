@@ -5,9 +5,10 @@ using System;
 
 public class CameraManager : MonoBehaviour
 {
-    [SerializeField]
-    private GameObject actionCameraGameObject;
+    // Member Variables
+    [SerializeField] private GameObject actionCameraGameObject;
 
+    // Awake - Start - Update Methods
     private void Start()
     {
         BaseAction.OnAnyActionStarted += BaseAction_OnAnyActionStarted;
@@ -16,15 +17,9 @@ public class CameraManager : MonoBehaviour
         HideActionCamera();
     }
 
-    private void ShowActionCamera()
-    {
-        actionCameraGameObject.SetActive(true);
-    }
-
-    private void HideActionCamera()
-    {
-        actionCameraGameObject.SetActive(false);
-    }
+    // Class Methods
+    private void ShowActionCamera() => actionCameraGameObject.SetActive(true);
+    private void HideActionCamera() => actionCameraGameObject.SetActive(false);
 
     private void BaseAction_OnAnyActionStarted(object sender, EventArgs e)
     {

@@ -24,13 +24,12 @@ public class GridSystemVisual : MonoBehaviour
         Green,
     }
 
-    [SerializeField]
-    private Transform gridSystemVisualSinglePrefab;
+    [SerializeField] private Transform gridSystemVisualSinglePrefab;
 
-    [SerializeField]
-    private List<GridVisualTypeMaterial> gridVisualTypeMaterialList;
+    [SerializeField] private List<GridVisualTypeMaterial> gridVisualTypeMaterialList;
     private GridSystemVisualSingle[,] gridSystemVisualSingleArray;
 
+    // Awake - Start - Update Methods
     private void Awake()
     {
         if (Instance != null)

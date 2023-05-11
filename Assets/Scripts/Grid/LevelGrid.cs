@@ -5,15 +5,17 @@ using System;
 
 public class LevelGrid : MonoBehaviour
 {
+    // Singleton
     public static LevelGrid Instance { get; private set; }
 
+    // Event Handlers
     public event EventHandler OnAnyUnitMovedGridPosition;
 
+    // Member Variables
     private GridSystem gridSystem;
+    [SerializeField] private Transform gridDebugObjectPrefab;
 
-    [SerializeField]
-    private Transform gridDebugObjectPrefab;
-
+    // Awake - Start - Update Methods
     private void Awake()
     {
         if (Instance != null)
