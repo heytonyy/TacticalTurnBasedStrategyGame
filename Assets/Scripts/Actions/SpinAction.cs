@@ -5,7 +5,6 @@ using System;
 
 public class SpinAction : BaseAction
 {
-
     private float totalSpinAmount;
 
     private void Update()
@@ -27,23 +26,19 @@ public class SpinAction : BaseAction
 
     public override string GetActionName() => "Spin";
 
-    public override int GetActionPointsCost() => 2;
+    public override int GetActionPointsCost() => 1;
 
     public override void TakeAction(GridPosition gridPosition, Action onActionComplete)
     {
-        ActionStart(onActionComplete);
-        
         totalSpinAmount = 0f;
+
+        ActionStart(onActionComplete);
     }
 
     public override List<GridPosition> GetValidActionGridPositionList()
     {
         GridPosition unitGridPosition = unit.GetGridPosition();
 
-        return new List<GridPosition>
-        {
-            unitGridPosition
-        };
+        return new List<GridPosition> { unitGridPosition };
     }
-
 }

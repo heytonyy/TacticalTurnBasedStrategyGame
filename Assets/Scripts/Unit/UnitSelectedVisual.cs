@@ -5,7 +5,8 @@ using System;
 
 public class UnitSelectedVisual : MonoBehaviour
 {
-    [SerializeField] private Unit unit;
+    [SerializeField]
+    private Unit unit;
     private ParticleSystem selectedVisual;
 
     private void Awake()
@@ -37,5 +38,9 @@ public class UnitSelectedVisual : MonoBehaviour
             selectedVisual.Clear(); // Clear particles that are already playing
         }
     }
-    
+
+    private void OnDestroy()
+    {
+        UnitActionSystem.Instance.OnSelectedUnitChanged -= UnitActionSystem_OnSelectedUnitChanged;
+    }
 }

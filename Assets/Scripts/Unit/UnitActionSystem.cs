@@ -6,18 +6,18 @@ using UnityEngine.EventSystems;
 
 public class UnitActionSystem : MonoBehaviour
 {
-
     public static UnitActionSystem Instance { get; private set; }
 
     public event EventHandler OnSelectedUnitChanged;
     public event EventHandler OnSelectedActionChanged;
     public event EventHandler<bool> OnBusyChanged;
     public event EventHandler OnActionStarted;
-    
 
+    [SerializeField]
+    private Unit selectedUnit;
 
-    [SerializeField] private Unit selectedUnit;
-    [SerializeField] private LayerMask unitLayerMask;
+    [SerializeField]
+    private LayerMask unitLayerMask;
 
     private BaseAction selectedAction;
     private bool isBusy;
@@ -26,7 +26,9 @@ public class UnitActionSystem : MonoBehaviour
     {
         if (Instance != null)
         {
-            Debug.LogError("There's more than one UnitActionSystem! " + transform + " - " + Instance);
+            Debug.LogError(
+                "There's more than one UnitActionSystem! " + transform + " - " + Instance
+            );
             Destroy(gameObject);
             return;
         }
@@ -45,7 +47,7 @@ public class UnitActionSystem : MonoBehaviour
             return; // don't do anything if we're doing an action
         }
 
-        if(!TurnSystem.Instance.IsPlayerTurn())
+        if (!TurnSystem.Instance.IsPlayerTurn())
         {
             return; // don't do anything if it's the enemy's turn
         }
@@ -67,7 +69,9 @@ public class UnitActionSystem : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0))
         {
-            GridPosition mouseGridPosition = LevelGrid.Instance.GetGridPosition(MouseWorld.GetPosition());
+            GridPosition mouseGridPosition = LevelGrid.Instance.GetGridPosition(
+                MouseWorld.GetPosition()
+            );
 
             if (!selectedAction.IsValidActionGridPosition(mouseGridPosition))
             {
@@ -120,15 +124,18 @@ public class UnitActionSystem : MonoBehaviour
 
         OnBusyChanged?.Invoke(this, isBusy);
     }
+
     private void ClearBusy()
     {
         isBusy = false;
 
         OnBusyChanged?.Invoke(this, isBusy);
     }
+
     public bool IsBusy() => isBusy;
 
     public Unit GetSelectedUnit() => selectedUnit;
+
     private void SetSelectedUnit(Unit unit)
     {
         selectedUnit = unit;
@@ -138,6 +145,7 @@ public class UnitActionSystem : MonoBehaviour
     }
 
     public BaseAction GetSelectedAction() => selectedAction;
+
     public void SetSelectedAction(BaseAction action)
     {
         selectedAction = action;

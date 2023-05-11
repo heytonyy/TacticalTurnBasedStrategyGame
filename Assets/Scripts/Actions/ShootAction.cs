@@ -94,13 +94,12 @@ public class ShootAction : BaseAction
             new OnShootEventArgs { shootingUnit = unit, targetUnit = targetUnit }
         );
 
-        targetUnit.TakeDamage();
+        int damageAmount = 40;
+        targetUnit.TakeDamage(damageAmount);
     }
 
     public override void TakeAction(GridPosition gridPosition, Action onActionComplete)
     {
-        ActionStart(onActionComplete);
-
         targetUnit = LevelGrid.Instance.GetUnitAtGridPosition(gridPosition);
 
         state = State.Aiming;
@@ -108,6 +107,8 @@ public class ShootAction : BaseAction
         stateTimer = aimingStateTime;
 
         canShoot = true;
+
+        ActionStart(onActionComplete);
     }
 
     public override List<GridPosition> GetValidActionGridPositionList()
@@ -150,4 +151,8 @@ public class ShootAction : BaseAction
 
         return validActionGridPositionList;
     }
+
+    public Unit GetTargetUnit() => targetUnit;
+
+    public int GetMaxShootDistance() => maxShootDistance;
 }

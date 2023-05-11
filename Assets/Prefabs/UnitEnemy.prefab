@@ -17,6 +17,12 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3146430157407736532, guid: 2fd9b5754b7123d44aea7d618814d049,
+        type: 3}
+      propertyPath: ragdollPrefab
+      value: 
+      objectReference: {fileID: 7122028448853090483, guid: dd954e1e73aa2c2469f3a63c48974db3,
+        type: 3}
     - target: {fileID: 8196496475985605500, guid: 2fd9b5754b7123d44aea7d618814d049,
         type: 3}
       propertyPath: isEnemy
