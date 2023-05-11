@@ -19,6 +19,7 @@ public class Unit : MonoBehaviour
     private HealthSystem healthSystem;
     private MoveAction moveAction;
     private SpinAction spinAction;
+    private ShootAction shootAction;
     private BaseAction[] baseActionArray;
     private int actionPoints = ACTION_POINTS_MAX;
 
@@ -28,6 +29,7 @@ public class Unit : MonoBehaviour
         healthSystem = GetComponent<HealthSystem>();
         moveAction = GetComponent<MoveAction>();
         spinAction = GetComponent<SpinAction>();
+        shootAction = GetComponent<ShootAction>();
         baseActionArray = GetComponents<BaseAction>();
     }
 
@@ -60,9 +62,11 @@ public class Unit : MonoBehaviour
     public Vector3 GetWorldPosition() => transform.position;
     public MoveAction GetMoveAction() => moveAction;
     public SpinAction GetSpinAction() => spinAction;
+    public ShootAction GetShootAction() => shootAction;
     public BaseAction[] GetBaseActionArray() => baseActionArray;
     public bool IsEnemy() => isEnemy;
     public int GetActionPoints() => actionPoints;
+    public float GetHealthNormalized() => healthSystem.GetHealthNormalized();
 
     // Class Methods
     public bool TrySpendActionToTakeAction(BaseAction baseAction)

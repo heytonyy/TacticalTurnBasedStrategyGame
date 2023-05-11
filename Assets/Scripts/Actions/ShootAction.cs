@@ -99,8 +99,13 @@ public class ShootAction : BaseAction
 
     public override List<GridPosition> GetValidActionGridPositionList()
     {
-        List<GridPosition> validActionGridPositionList = new List<GridPosition>();
         GridPosition unitGridPosition = unit.GetGridPosition();
+        return GetValidActionGridPositionList(unitGridPosition);
+    }
+
+    public List<GridPosition> GetValidActionGridPositionList(GridPosition unitGridPosition)
+    {
+        List<GridPosition> validActionGridPositionList = new List<GridPosition>();
 
         for (int x = -maxShootDistance; x <= maxShootDistance; x++)
         {
@@ -138,6 +143,18 @@ public class ShootAction : BaseAction
         return validActionGridPositionList;
     }
 
+    public override EnemyAIAction GetEnemyAIAction(GridPosition gridPosition)
+    {
+        Unit targetUnit = LevelGrid.Instance.GetUnitAtGridPosition(gridPosition);
+        int lowHealthModifier = Mathf.RoundToInt((1 - targetUnit.GetHealthNormalized()) * 100f);
+
+        return new EnemyAIAction
+        {
+            gridPosition = gridPosition,
+            actionValue = 100 + lowHealthModifier,
+        };
+    }
+
     // Getter Methods
     public Unit GetTargetUnit() => targetUnit;
     public int GetMaxShootDistance() => maxShootDistance;
@@ -149,5 +166,10 @@ public class ShootAction : BaseAction
 
         int damageAmount = 40;
         targetUnit.TakeDamage(damageAmount);
+    }
+
+    public int GetTargetCountAtPosition(GridPosition gridPosition)
+    {
+        return GetValidActionGridPositionList(gridPosition).Count;
     }
 }

@@ -24,6 +24,7 @@ public abstract class BaseAction : MonoBehaviour
     public abstract string GetActionName();
     public abstract void TakeAction(GridPosition gridPosition, Action onActionComplete);
     public abstract List<GridPosition> GetValidActionGridPositionList();
+    public abstract EnemyAIAction GetEnemyAIAction(GridPosition gridPosition);
 
     // Virtual Methods (overridden by subclasses)
     public virtual int GetActionPointsCost() => 1;
@@ -31,7 +32,6 @@ public abstract class BaseAction : MonoBehaviour
     {
         return GetValidActionGridPositionList().Contains(gridPosition);
     }
-
 
     // Action Delegate Methods
     protected void ActionStart(Action onActionComplete)
@@ -52,5 +52,30 @@ public abstract class BaseAction : MonoBehaviour
 
     // Getter Methods
     public Unit GetUnit() => unit;
+
+    // Class Methods
+    public EnemyAIAction GetBestEnemyAIAction()
+    {
+        List<EnemyAIAction> enemyAIActionList = new List<EnemyAIAction>();
+        List<GridPosition> validActionGridPositionList = GetValidActionGridPositionList();
+
+        foreach (GridPosition gridPosition in validActionGridPositionList)
+        {
+            EnemyAIAction enemyAIAction = GetEnemyAIAction(gridPosition);
+            enemyAIActionList.Add(enemyAIAction);
+        }
+
+        if (enemyAIActionList.Count > 0)
+        {
+            enemyAIActionList.Sort((EnemyAIAction a, EnemyAIAction b) => b.actionValue - a.actionValue);
+            return enemyAIActionList[0];
+        }
+        else
+        {
+            return null; // No valid actions
+        }
+
+    }
+
 
 }
