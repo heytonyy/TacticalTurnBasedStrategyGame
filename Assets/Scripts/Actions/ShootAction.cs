@@ -6,6 +6,7 @@ using UnityEngine;
 public class ShootAction : BaseAction
 {
     // Event Handlers
+    public static event EventHandler<OnShootEventArgs> OnAnyShoot;
     public event EventHandler<OnShootEventArgs> OnShoot;
     public class OnShootEventArgs : EventArgs
     {
@@ -18,6 +19,7 @@ public class ShootAction : BaseAction
     private float stateTimer;
     private Unit targetUnit;
     private bool canShoot;
+    [SerializeField] private LayerMask obstaclesLayerMask;
 
     // State Management
     private enum State
@@ -136,6 +138,19 @@ public class ShootAction : BaseAction
                     continue; // cant shoot at friendly unit, "same team" -> .IsEnemy() will be the same
                 }
 
+                Vector3 unitWorldPosition = LevelGrid.Instance.GetWorldPosition(unitGridPosition);
+                Vector3 shootDirection = (targetUnit.GetWorldPosition() - unitWorldPosition).normalized;
+
+                float unitShoulderHeight = 1.7f;
+                if (Physics.Raycast(
+                  unitWorldPosition + Vector3.up * unitShoulderHeight,
+                  shootDirection,
+                  Vector3.Distance(unitWorldPosition, targetUnit.GetWorldPosition()),
+                  obstaclesLayerMask))
+                {
+                    continue; // cant shoot at unit behind obstacle
+                }
+
                 validActionGridPositionList.Add(testGridPosition);
             }
         }
@@ -162,6 +177,7 @@ public class ShootAction : BaseAction
     // Other Methods
     private void Shoot()
     {
+        OnAnyShoot?.Invoke(this, new OnShootEventArgs { shootingUnit = unit, targetUnit = targetUnit });
         OnShoot?.Invoke(this, new OnShootEventArgs { shootingUnit = unit, targetUnit = targetUnit });
 
         int damageAmount = 40;
