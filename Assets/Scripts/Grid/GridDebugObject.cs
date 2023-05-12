@@ -6,19 +6,17 @@ using TMPro;
 public class GridDebugObject : MonoBehaviour
 {
     // Member Variables
-    private GridObject gridObject;
     [SerializeField] private TextMeshPro textMeshPro;
+    private object gridObject;
 
     // Awake - Start - Update Methods
-    private void Update()
+    protected virtual void Update()
     {
         textMeshPro.text = gridObject.ToString();
-        // toggle comment below to see gridObject.ToString() in the game
-        // textMeshPro.text = "";
     }
 
-    // Setter Methods
-    public void SetGridObject(GridObject gridObject)
+    // Virtual Methods
+    public virtual void SetGridObject(object gridObject)
     {
         this.gridObject = gridObject;
     }

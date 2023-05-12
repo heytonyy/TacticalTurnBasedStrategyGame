@@ -123,7 +123,7 @@ public class UnitActionSystem : MonoBehaviour
     private void SetSelectedUnit(Unit unit)
     {
         selectedUnit = unit;
-        SetSelectedAction(unit.GetMoveAction()); // default action
+        SetSelectedAction(unit.GetAction<MoveAction>()); // default action (using generics)
 
         OnSelectedUnitChanged?.Invoke(this, EventArgs.Empty);
     }
