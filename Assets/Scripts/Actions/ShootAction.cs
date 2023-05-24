@@ -118,7 +118,7 @@ public class ShootAction : BaseAction
 
                 if (!LevelGrid.Instance.IsValidGridPosition(testGridPosition))
                 {
-                    continue; // cant move to grid position out of bounds
+                    continue; // cant shoot to grid position out of bounds
                 }
 
                 int testDistance = Mathf.Abs(x) + Mathf.Abs(z);

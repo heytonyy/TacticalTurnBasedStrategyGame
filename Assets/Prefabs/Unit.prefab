@@ -519,6 +519,8 @@ GameObject:
   - component: {fileID: 3617647291313659712}
   - component: {fileID: 8876298815886413994}
   - component: {fileID: 8442157775250631430}
+  - component: {fileID: 8817415010448277888}
+  - component: {fileID: 3648531369843414854}
   - component: {fileID: 1479686192803622669}
   - component: {fileID: 8414480869290529433}
   - component: {fileID: 3146430157407736532}
@@ -613,6 +615,32 @@ MonoBehaviour:
   obstaclesLayerMask:
     serializedVersion: 2
     m_Bits: 256
+--- !u!114 &8817415010448277888
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8196496475985605503}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 32b5f48f64997064e9cb51b3e35349fd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  grenadeProjectilePrefab: {fileID: 4742012706115120961, guid: 27905a3fa01666b47a4b4f1ef173cc7f,
+    type: 3}
+--- !u!114 &3648531369843414854
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8196496475985605503}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cab505b80f531004bb7c2421ed1eb569, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &1479686192803622669
 MonoBehaviour:
   m_ObjectHideFlags: 0

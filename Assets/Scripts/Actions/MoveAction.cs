@@ -80,33 +80,33 @@ public class MoveAction : BaseAction
 
                 if (!LevelGrid.Instance.IsValidGridPosition(testGridPosition))
                 {
-                    continue; // validation: cant move to grid position out of bounds
+                    continue; // cant move to grid position out of bounds
                 }
 
                 if (unitGridPosition == testGridPosition)
                 {
-                    continue; // validation: cant move to unit's current position
+                    continue; // cant move to unit's current position
                 }
 
                 if (LevelGrid.Instance.HasAnyUnitOnGridPosition(testGridPosition))
                 {
-                    continue; // validation: cant move to grid position occupied by another unit
+                    continue; // cant move to grid position occupied by another unit
                 }
 
                 if (!Pathfinding.Instance.IsWalkableGridPosition(testGridPosition))
                 {
-                    continue; // validation: cant move to grid position occupied by an obstacle
+                    continue; // cant move to grid position occupied by an obstacle
                 }
 
                 if (!Pathfinding.Instance.HasPath(unitGridPosition, testGridPosition))
                 {
-                    continue; // validation: cant move to grid position that is not reachable
+                    continue; // cant move to grid position that is not reachable
                 }
 
                 int pathfindingDistanceMultiplier = 10;
                 if (Pathfinding.Instance.GetPathLength(unitGridPosition, testGridPosition) > maxMoveDistance * pathfindingDistanceMultiplier)
                 {
-                    continue; // validation: cant move to grid position that is too far away
+                    continue; // cant move to grid position that is too far away
                 }
 
                 validActionGridPositionList.Add(testGridPosition);

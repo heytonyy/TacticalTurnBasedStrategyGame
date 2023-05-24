@@ -6,7 +6,7 @@ using System;
 public class Unit : MonoBehaviour
 {
     // Constants
-    private const int ACTION_POINTS_MAX = 2;
+    private const int ACTION_POINTS_MAX = 9;
 
     // Event Handlers
     public static event EventHandler OnAnyActionPointsChanged;
